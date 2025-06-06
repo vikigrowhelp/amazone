@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delivery Address | Blupro</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eef1f6;
+      margin: 0;
+      padding: 0;
+      color: #111;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      font-size: 26px;
+      margin-bottom: 25px;
+      color: #232f3e;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+    input,
+    select {
+      width: 93%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border: 1px solid #d5d9d9;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: border 0.2s;
+    }
+    input:focus,
+    select:focus {
+      border-color: #007185;
+      outline: none;
+    }
+    button {
+      background-color: #ffa41c;
+      color: #111;
+      font-weight: bold;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #f08804;
+    }
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 20px;
+      }
+      h2 {
+        font-size: 22px;
+      }
+    }
+    .header {
+            background-color: #ffffff;
+            padding: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-icon, .profile-icon {
+            font-size: 20px;
+            color: #ffac02;
+        }
+        
+        .logo img {
+            height: 40px;
+            padding: 3px;
+            padding-right: 0px;
+        }
+
+        /* Offer section */
+.offer-section {
+    text-align: center;
+    padding: 1px;
+}
+
+.offer-section img {
+    max-width: 64%;
+    height: auto;
+}
+  </style>
+</head>
+<!-- Header -->
+    <div class="header">
+        <div class="menu-icon"><i class="fas fa-bars"></i></div>
+        <div class="logo"><img src="img/logo.png" alt="img 1"></div>
+        <div class="profile-icon"><i class="fas fa-user-circle"></i></div>
+    </div>
+
+    <section class="offer-section">
+        <img src="img/treking.jpg" alt="Offer Banner" class="banner">
+    </section>
+
+
+<body>
+  <div class="container">
+    <h2><i class="fas fa-location-dot"></i> Delivery Address</h2>
+    <form onsubmit="event.preventDefault(); window.location.href='https://wa.me/917275930175?text=Sir,%20mujhe%20yah%20mobile%20accha%20laga,%20payment%20kis%20par%20bheju%3F';">
+      <label for="fname">Full Name</label>
+      <input type="text" id="fname" placeholder="First Name" required>
+      <input type="text" id="lname" placeholder="Last Name" required>
+
+      <label for="mobile">Mobile Number</label>
+      <input type="tel" id="mobile" placeholder="Enter mobile number" required>
+
+      <label for="pincode">Pin Code</label>
+      <input type="text" id="pincode" placeholder="Enter pin code" required>
+
+      <label for="area">Area / Village</label>
+      <input type="text" id="area" placeholder="Enter area or village" required>
+
+      <label for="city">City</label>
+      <input type="text" id="city" placeholder="Enter city" required>
+
+      <label for="state">State</label>
+      <select id="state" required>
+        <option value="">--Select State--</option>
+        <option>Andhra Pradesh</option>
+        <option>Arunachal Pradesh</option>
+        <option>Assam</option>
+        <option>Bihar</option>
+        <option>Chhattisgarh</option>
+        <option>Goa</option>
+        <option>Gujarat</option>
+        <option>Haryana</option>
+        <option>Himachal Pradesh</option>
+        <option>Jharkhand</option>
+        <option>Karnataka</option>
+        <option>Kerala</option>
+        <option>Madhya Pradesh</option>
+        <option>Maharashtra</option>
+        <option>Manipur</option>
+        <option>Meghalaya</option>
+        <option>Mizoram</option>
+        <option>Nagaland</option>
+        <option>Odisha</option>
+        <option>Punjab</option>
+        <option>Rajasthan</option>
+        <option>Sikkim</option>
+        <option>Tamil Nadu</option>
+        <option>Telangana</option>
+        <option>Tripura</option>
+        <option>Uttar Pradesh</option>
+        <option>Uttarakhand</option>
+        <option>West Bengal</option>
+        <option>Andaman & Nicobar</option>
+        <option>Chandigarh</option>
+        <option>Dadra & Nagar Haveli</option>
+        <option>Daman & Diu</option>
+        <option>Delhi</option>
+        <option>Jammu & Kashmir</option>
+        <option>Ladakh</option>
+        <option>Puducherry</option>
+      </select>
+
+      <button type="submit">Confirm Your Order</button>
+    </form>
+  </div>
+</body>
+</html>

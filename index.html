@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amazon Style iPhone Card</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* Reset and Basic Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+    .product {
+      display: flex;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .product img {
+      width: 130px;
+      height: auto;
+      border-radius: 6px;
+      object-fit: contain;
+      margin-top: -112px;
+    }
+    .product-info {
+      flex: 1;
+      margin-left: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .top-content {
+      flex-grow: 1;
+    }
+    .sponsored {
+      font-size: 12px;
+      color: #777;
+    }
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    .rating {
+      font-size: 14px;
+      color: #f90;
+    }
+    .rating i {
+      color: #f90;
+    }
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+    .mrp {
+      text-decoration: line-through;
+      color: gray;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+    .offer {
+      color: green;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+    .delivery {
+      font-size: 14px;
+      color: #333;
+      margin-top: 8px;
+    }
+    .buy-btn {
+      align-self: flex-start;
+      background-color: #FFD814;
+      color: #111;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      margin-top: 12px;
+      cursor: pointer;
+    }
+    .buy-btn:hover {
+      background-color: #f7ca00;
+    }
+    .header {
+            background-color: #ffffff;
+            padding: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-icon, .profile-icon {
+            font-size: 20px;
+            color: #ffac02;
+        }
+        
+        .logo img {
+            height: 40px;
+            padding: 3px;
+            padding-right: 0px;
+        }
+
+        /* Offer section */
+.offer-section {
+    text-align: center;
+    padding: 1px;
+}
+
+.offer-section img {
+    max-width: 100%;
+    height: auto;
+}
+
+header {
+      background-color: #232f3e;
+      padding: 15px 20px;
+      color: white;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .carousel-container {
+      overflow: hidden;
+      position: relative;
+      margin: 20px 0;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 20px;
+      animation: scrollX 20s linear infinite;
+    }
+
+    .carousel-item {
+      min-width: 230px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .carousel-item:hover {
+      transform: scale(1.05);
+    }
+
+    .carousel-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .carousel-details {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .carousel-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .carousel-price {
+      color: green;
+      font-size: 14px;
+    }
+
+    @keyframes scrollX {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 600px) {
+      .carousel-item {
+        min-width: 180px;
+      }
+    }
+
+    .whatsapp-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #00ff0d00;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      animation: pulse 1s infinite;
+      z-index: 9999;
+      transition: transform 0.3s;
+    }
+
+    .whatsapp-button:hover {
+      transform: scale(1.1);
+    }
+
+    .whatsapp-button img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(64, 255, 0, 0.882); }
+      70% { box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+    }
+
+    #preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff; /* Change to dark if needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .preloader-logo {
+    width: 200px;
+    height: 62px;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .review-box {
+      border-bottom: 1px solid #ddd;
+      padding: 20px 20px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .user-info i {
+      font-size: 30px;
+      margin-right: 10px;
+      color: gray;
+    }
+
+    .username {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .stars {
+      color: #FFA41C;
+      margin: 5px 0;
+    }
+
+    .verified {
+      color: #C45500;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .review-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 5px;
+    }
+
+    .review-meta {
+      color: #555;
+      font-size: 14px;
+      margin: 5px 0;
+    }
+
+    .review-meta span {
+      margin-right: 10px;
+    }
+
+    .image-scroll {
+      display: flex;
+      overflow-x: auto;
+      margin: 10px 0;
+      gap: 10px;
+    }
+
+    .image-scroll img {
+      width: 200px;
+      height: 150px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .review-content {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .see-more {
+      color: #007185;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .helpful {
+      font-size: 13px;
+      color: #555;
+      margin-top: 8px;
+    }
+
+    .review-image {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.review-lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+}
+
+.review-lightbox img {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+.review-lightbox:target {
+  display: block;
+}
+
+.review-input-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      flex-wrap: wrap;
+    }
+
+    .review-input-box i {
+      font-size: 24px;
+      color: #555;
+    }
+
+    .review-input-box textarea {
+      flex: 2;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      resize: none;
+      min-height: 50px;
+    }
+
+    .review-input-box input[type="file"] {
+      flex: 1;
+    }
+
+    .review-input-box select {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .review-input-box button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .review-input-box button:hover {
+      background: #218838;
+    }
+
+    .warning-popup {
+      display: none;
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      background: white;
+      border: 2px solid red;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .warning-popup img {
+      width: 150px;
+      margin-bottom: 10px;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 998;
+    }
+
+    @media (max-width: 600px) {
+      .review-input-box {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .review-input-box textarea,
+      .review-input-box input,
+      .review-input-box select,
+      .review-input-box button {
+        width: 100%;
+      }
+    }
+
+
+    
+  </style>
+</head>
+
+<!-- Preloader -->
+<div id="preloader">
+  <img src="img/logo.png" alt="Logo" class="preloader-logo">
+</div>
+<script>
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      document.getElementById("preloader").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+    }, 2000); // Change 2000 to any ms value (3000 = 3 sec)
+  });
+</script>
+
+
+<div class="whatsapp-button" onclick="redirectToWhatsApp()">
+    <img src="img/help.png" alt="Support DP">
+  </div>
+
+  <script>
+    function redirectToWhatsApp() {
+      const phoneNumber = "917275930175";
+      const message = "I need help";
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+  </script>
+
+<!-- Header -->
+    <div class="header">
+        <div class="menu-icon"><i class="fas fa-bars"></i></div>
+        <div class="logo"><img src="img/logo.png" alt="img 1"></div>
+        <div class="profile-icon"><i class="fas fa-user-circle"></i></div>
+    </div>
+
+    <section class="offer-section">
+        <img src="img/baner.jpg" alt="Offer Banner" class="banner">
+    </section>
+
+
+<body>
+
+
+  <!-- Product Card 1 -->
+  <div class="product">
+    <img src="phone/iPhone 16 Pro Max.jpg" alt="iPhone Image">
+    <div class="product-info">
+      <div class="top-content">
+        <div class="sponsored">Sponsored</div>
+        <div class="title">iPhone 16 Pro Max 1TB: 5G Mobile Phone with Camera Control, 4K 120 fps Dolby Vision and a Huge Leap ...</div>
+        <div class="rating">
+          4.4 <i class="fa fa-star"></i> (284) <br>
+          <span style="color:#777;">100+ bought in past month</span>
+        </div>
+        <div class="price">
+          ₹4,900 <span class="mrp">₹1,69,900</span> <span class="offer">(98% off)</span>
+        </div>
+        <div class="delivery">
+          <strong>FREE delivery within 24 hours</strong> <br>
+          Service: Setup at delivery
+        </div>
+      </div>
+      <button class="buy-btn" onclick="location.href='checkout-page.html'">Buy Now</button>
+    </div>
+  </div>
+
+  <!-- Product Card 1 -->
+  <div class="product">
+    <img src="phone/iPhone 16.jpg" alt="iPhone Image">
+    <div class="product-info">
+      <div class="top-content">
+        <div class="sponsored">Sponsored</div>
+        <div class="title">iPhone 16 128 GB: 5G Mobile Phone with Camera Control, A18 Chip and a Big Boost in Battery Life. Works with AirPods; Ultramarine</div>
+        <div class="rating">
+          4.4 <i class="fa fa-star"></i> (284) <br>
+          <span style="color:#777;">100+ bought in past month</span>
+        </div>
+        <div class="price">
+          ₹4,100 <span class="mrp">₹79,900</span> <span class="offer">(98% off)</span>
+        </div>
+        <div class="delivery">
+          <strong>FREE delivery within 24 hours</strong> <br>
+          Service: Setup at delivery
+        </div>
+      </div>
+      <button class="buy-btn" onclick="location.href='checkout-page.html'">Buy Now</button>
+    </div>
+  </div>
+
+  <!-- Product Card 1 -->
+  <div class="product">
+    <img src="phone/iPhone 15 Pro Max.jpg" alt="iPhone Image">
+    <div class="product-info">
+      <div class="top-content">
+        <div class="sponsored">Sponsored</div>
+        <div class="title"> iPhone 15 Pro Max (512 GB) </div>
+        <div class="rating">
+          4.4 <i class="fa fa-star"></i> (2,284) <br>
+          <span style="color:#777;">100+ bought in past month</span>
+        </div>
+        <div class="price">
+          ₹4,500 <span class="mrp">₹1,49,900</span> <span class="offer">(98% off)</span>
+        </div>
+        <div class="delivery">
+          <strong>FREE delivery within 24 hours</strong> <br>
+          Service: Setup at delivery
+        </div>
+      </div>
+      <button class="buy-btn" onclick="location.href='checkout-page.html'">Buy Now</button>
+    </div>
+  </div>
+
+  <!-- Product Card 1 -->
+  <div class="product">
+    <img src="phone/iPhone 15.jpg" alt="iPhone Image">
+    <div class="product-info">
+      <div class="top-content">
+        <div class="sponsored">Sponsored</div>
+        <div class="title"> iPhone 15 (512 GB) </div>
+        <div class="rating">
+          4.4 <i class="fa fa-star"></i> (1,384) <br>
+          <span style="color:#777;">100+ bought in past month</span>
+        </div>
+        <div class="price">
+          ₹3,700 <span class="mrp">₹65,900</span> <span class="offer">(98% off)</span>
+        </div>
+        <div class="delivery">
+          <strong>FREE delivery within 24 hours</strong> <br>
+          Service: Setup at delivery
+        </div>
+      </div>
+      <button class="buy-btn" onclick="location.href='checkout-page.html'">Buy Now</button>
+    </div>
+  </div>
+
+  <!-- Product Card 1 -->
+  <div class="product">
+    <img src="phone/iPhone 14 Pro Max.jpg" alt="iPhone Image">
+    <div class="product-info">
+      <div class="top-content">
+        <div class="sponsored">Sponsored</div>
+        <div class="title"> iPhone 14 Pro Max (512 GB) </div>
+        <div class="rating">
+          4.4 <i class="fa fa-star"></i> (84) <br>
+          <span style="color:#777;">100+ bought in past month</span>
+        </div>
+        <div class="price">
+          ₹3,900 <span class="mrp">₹1,29,900</span> <span class="offer">(98% off)</span>
+        </div>
+        <div class="delivery">
+          <strong>FREE delivery within 24 hours</strong> <br>
+          Service: Setup at delivery
+        </div>
+      </div>
+      <button class="buy-btn" onclick="location.href='checkout-page.html'">Buy Now</button>
+    </div>
+  </div>
+
+  <!-- Product Card 1 -->
+  <div class="product">
+    <img src="phone/iPhone 14.jpg" alt="iPhone Image">
+    <div class="product-info">
+      <div class="top-content">
+        <div class="sponsored">Sponsored</div>
+        <div class="title"> iPhone 14 (128 GB) </div>
+        <div class="rating">
+          4.4 <i class="fa fa-star"></i> (184) <br>
+          <span style="color:#777;">100+ bought in past month</span>
+        </div>
+        <div class="price">
+          ₹3,100 <span class="mrp">₹59,900</span> <span class="offer">(98% off)</span>
+        </div>
+        <div class="delivery">
+          <strong>FREE delivery within 24 hours</strong> <br>
+          Service: Setup at delivery
+        </div>
+      </div>
+      <button class="buy-btn" onclick="location.href='checkout-page.html'">Buy Now</button>
+    </div>
+  </div>
+
+  <!-- Product Card 1 -->
+  <div class="product">
+    <img src="phone/Apple iPhone 13 Pro Max.jpg" alt="iPhone Image">
+    <div class="product-info">
+      <div class="top-content">
+        <div class="sponsored">Sponsored</div>
+        <div class="title"> iPhone 13 Pro Max (256 GB) </div>
+        <div class="rating">
+          4.4 <i class="fa fa-star"></i> (584) <br>
+          <span style="color:#777;">100+ bought in past month</span>
+        </div>
+        <div class="price">
+          ₹3,500 <span class="mrp">₹1,19,900</span> <span class="offer">(98% off)</span>
+        </div>
+        <div class="delivery">
+          <strong>FREE delivery within 24 hours</strong> <br>
+          Service: Setup at delivery
+        </div>
+      </div>
+      <button class="buy-btn" onclick="location.href='checkout-page.html'">Buy Now</button>
+    </div>
+  </div>
+
+  <!-- Product Card 1 -->
+  <div class="product">
+    <img src="phone/iPhone 13.jpg" alt="iPhone Image">
+    <div class="product-info">
+      <div class="top-content">
+        <div class="sponsored">Sponsored</div>
+        <div class="title"> iPhone 13 (128 GB) </div>
+        <div class="rating">
+          4.4 <i class="fa fa-star"></i> (544) <br>
+          <span style="color:#777;">100+ bought in past month</span>
+        </div>
+        <div class="price">
+          ₹3,000 <span class="mrp">₹49,900</span> <span class="offer">(98% off)</span>
+        </div>
+        <div class="delivery">
+          <strong>FREE delivery within 24 hours</strong> <br>
+          Service: Setup at delivery
+        </div>
+      </div>
+      <button class="buy-btn" onclick="location.href='checkout-page.html'">Buy Now</button>
+    </div>
+  </div>
+
+
+  <!-- Review 1 -->
+  <div class="review-box">
+    <div class="user-info">
+      <i class="fa-regular fa-user"></i>
+      <span class="username">Sarthak</span>
+    </div>
+    <div class="stars">
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <span class="verified">Verified Purchase</span>
+    </div>
+    <div class="review-title">Amazing battery life and camera</div>
+    <div class="review-meta">
+      Reviewed in India on 22 October 2024<br>
+      <span>Model: 14 Pro Max</span> |
+      <span>Size: 256 GB</span>
+    </div>
+    <div class="image-scroll">
+      <img src="review/14 pro max 4.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/14 pro max.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/14 pro max 2.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/14 pro max 3.jpg" class="review-image" onclick="openLightbox(this.src)">
+    </div>
+    <div class="review-content">
+      मैंने पहली बार online किसी से मोबाइल मंगवाया था और थोड़ा डर भी लग रहा था, लेकिन जैसे ही मेरा iPhone 14 Pro Max मिला, मैं पूरी तरह से संतुष्ट हो गया। मोबाइल की condition बहुत अच्छी है, कोई भी डेंट या स्क्रैच नहीं है। Face ID, कैमरा और बैटरी सब कुछ perfectly काम कर रहे हैं। इतनी कम कीमत में इतना अच्छा फोन मिलना सच में किसी वरदान से कम नहीं है। बहुत-बहुत धन्यवाद!
+    </div>
+    <div class="see-more">See more</div>
+    <div class="helpful">452 people found this helpful</div>
+  </div>
+
+  <!-- Review 2 -->
+  <div class="review-box">
+    <div class="user-info">
+      <i class="fa-regular fa-user"></i>
+      <span class="username">vikash kumar</span>
+    </div>
+    <div class="stars">
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <span class="verified">Verified Purchase</span>
+    </div>
+    <div class="review-title">Amazing battery life and camera</div>
+    <div class="review-meta">
+      Reviewed in India on 22 October 2024<br>
+      <span>Model: 16 Pro Max</span> |
+      <span>Size: 256 GB</span>
+    </div>
+    <div class="image-scroll">
+      <img src="review/16 pro max.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/16 pro max 2.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/16 pro max 3.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/16 pro max 4.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/16 pro max 5.jpg" class="review-image" onclick="openLightbox(this.src)">
+    </div>
+    <div class="review-content">
+      मैंने iPhone 16 ऑर्डर किया था curiosity के साथ कि देखूं कैसी quality मिलती है। लेकिन सच कहूं तो मुझे बहुत ही अच्छा experience मिला। फोन की speed बहुत अच्छी है, कोई heating issue नहीं है और sound quality भी जबरदस्त है। मैं चाहूंगा कि आप इसी तरह औरों को भी अच्छी service देते रहें।
+    </div>
+    <div class="see-more">See more</div>
+    <div class="helpful">742 people found this helpful</div>
+  </div>
+
+  <!-- Review 3 -->
+  <div class="review-box">
+    <div class="user-info">
+      <i class="fa-regular fa-user"></i>
+      <span class="username">Praveen kumar</span>
+    </div>
+    <div class="stars">
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <span class="verified">Verified Purchase</span>
+    </div>
+    <div class="review-title">Amazing battery life and camera</div>
+    <div class="review-meta">
+      Reviewed in India on 22 October 2024<br>
+      <span>Model: iphone 13</span> |
+      <span>Size: 128 GB</span>
+    </div>
+    <div class="image-scroll">
+      <img src="review/13.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/13 2.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/13 3.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/13 4.jpg" class="review-image" onclick="openLightbox(this.src)">
+    </div>
+    <div class="review-content">
+      Thanks a lot sir! I ordered iPhone 13 and to be honest, I was a little nervous in the beginning. But the phone I received is exactly as described—clean screen, smooth performance, and amazing battery life. It even came with a charging cable. I’ve been using it for over a week now and everything is running super smooth. Highly satisfied and truly grateful for this service!
+    </div>
+    <div class="see-more">See more</div>
+    <div class="helpful">1732 people found this helpful</div>
+  </div>
+
+
+<!-- Review 4 -->
+  <div class="review-box">
+    <div class="user-info">
+      <i class="fa-regular fa-user"></i>
+      <span class="username">Himanshu sharma</span>
+    </div>
+    <div class="stars">
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <span class="verified">Verified Purchase</span>
+    </div>
+    <div class="review-title">Amazing battery life and camera</div>
+    <div class="review-meta">
+      Reviewed in India on 22 October 2024<br>
+      <span>Model: iphone 14</span> |
+      <span>Size: 128 GB</span>
+    </div>
+    <div class="image-scroll">
+      <img src="review/14.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/14 2.avif" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/14 3.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/14 4.jpg" class="review-image" onclick="openLightbox(this.src)">
+    </div>
+    <div class="review-content">
+      सर, आजकल के टाइम में भरोसा करना थोड़ा मुश्किल होता है, लेकिन आपने जो विश्वास दिलाया वो काबिल-ए-तारीफ है। मैंने iPhone 14 Plus मंगवाया था और 4 दिन में मुझे safe packaging में मिल गया। फोन का display बिलकुल साफ है, टच responsive है और बैटरी भी अच्छा backup दे रही है। मैं अब अपने भाई के लिए भी एक और ऑर्डर देने वाला हूं।
+    </div>
+    <div class="see-more">See more</div>
+    <div class="helpful">234 people found this helpful</div>
+  </div>
+
+
+  <!-- Review 5 -->
+  <div class="review-box">
+    <div class="user-info">
+      <i class="fa-regular fa-user"></i>
+      <span class="username">Kuldeep</span>
+    </div>
+    <div class="stars">
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <span class="verified">Verified Purchase</span>
+    </div>
+    <div class="review-title">Amazing battery life and camera</div>
+    <div class="review-meta">
+      Reviewed in India on 22 October 2024<br>
+      <span>Model: iphone 15 Pro Max</span> |
+      <span>Size: 256 GB</span>
+    </div>
+    <div class="image-scroll">
+      <img src="review/15 Pro Max.jpg" class="review-image" onclick="openLightbox(this.src)">
+      <img src="review/15 Pro Max 2.jpg" class="review-image" onclick="openLightbox(this.src)">
+    </div>
+    <div class="review-content">
+      Received my iPhone 15 Pro Max today and I am genuinely impressed. The phone is in amazing condition, not a single issue with the software or hardware. I verified the serial number on Apple’s official site and everything matched perfectly. I was expecting some minor scratches, but the device looks nearly new. Really appreciate the transparency and speed of delivery!
+    </div>
+    <div class="see-more">See more</div>
+    <div class="helpful">172 people found this helpful</div>
+  </div>
+
+  <div id="lightbox" class="review-lightbox" onclick="this.style.display='none'">
+  <img id="lightbox-img" src="">
+</div>
+
+
+  
+<script>
+        function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').style.display = 'block';
+}
+
+    </script>
+
+
+<div class="review-input-box">
+    <i class="fa-regular fa-user"></i>
+    <textarea placeholder="Write your review..."></textarea>
+    <input type="file" multiple>
+    <select>
+      <option value="">Rating</option>
+      <option value="1">⭐</option>
+      <option value="2">⭐⭐</option>
+      <option value="3">⭐⭐⭐</option>
+      <option value="4">⭐⭐⭐⭐</option>
+      <option value="5">⭐⭐⭐⭐⭐</option>
+    </select>
+    <button onclick="checkPurchase()">Send</button>
+  </div>
+
+  <!-- Warning Modal -->
+  <div class="overlay" id="overlay" onclick="closePopup()"></div>
+  <div class="warning-popup" id="warningPopup">
+    <img src="https://cdn-icons-png.flaticon.com/512/564/564619.png" alt="Warning">
+    <h3>Pehle aap mobile kharidein</h3>
+    <p>Uske baad hi review de sakte hain.</p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+
+  <script>
+    function checkPurchase() {
+      // Yahan pe aap real purchase check laga sakte ho backend se
+      // Abhi ke liye sabhi users fake maan ke popup dikhate hain
+      document.getElementById("overlay").style.display = "block";
+      document.getElementById("warningPopup").style.display = "block";
+    }
+
+    function closePopup() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("warningPopup").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
